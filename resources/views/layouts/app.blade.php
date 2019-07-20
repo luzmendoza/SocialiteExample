@@ -20,6 +20,9 @@
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+
+    <!--este yield define que las vistas hijas pueden definir sus propias secciones en este lugar-->
+    @yield('styles')
 </head>
 <body>
     <div id="app">
@@ -62,6 +65,19 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                                    <!--esta parte del menu solo se muestra cuando es administrador-->
+                                    @if ( Auth::user()->is_admin)
+                                        <a href="{{ url('/locations') }}" class="dropdown-item">
+                                            {{ __('Locations') }}
+                                        </a>
+                                        <a href="{{ url('/items') }}" class="dropdown-item">
+                                            {{ __('Items') }}
+                                        </a>
+                                    @endif
+                                    <!--esta parte del menu es visible para todos-->
+                                    <a href="{{ url('/monitor') }}" class="dropdown-item">
+                                            {{ __('Monitor') }}
+                                        </a>
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -83,5 +99,9 @@
             @yield('content')
         </main>
     </div>
+
+
+    <!--este yield define que las vistas hijas pueden definir sus propias secciones en este lugar-->
+    @yield('scripts')
 </body>
 </html>

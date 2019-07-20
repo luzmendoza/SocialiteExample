@@ -12,7 +12,7 @@
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="name">Item</label>
-                            <input type="text" name="name" id="name" class="form-control" placeholder="Ingrese nombre y presione Enter">
+                            <input type="text" name="name" id="name" class="form-control" placeholder="Ingrese nombre y presione Enter" required="required">
                         </div>
 
                     </form>
@@ -46,6 +46,9 @@
                                         <form action="{{ url('/items/'.$item->id)}}" method="post">
                                              {{ csrf_field() }}
                                             {{ method_field('delete')}}
+                                            <a href="{{url('/items/'.$item->id)}}" class="btn btn-info">
+                                                Editar
+                                            </a>
                                             <button class="btn btn-danger">
                                                 Eliminar
                                             </button> 

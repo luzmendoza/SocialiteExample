@@ -12,7 +12,7 @@
                         {{ csrf_field() }}
                         <div class="form-group">
                             <label for="name">Ubicación</label>
-                            <input type="text" name="name" id="name" class="form-control">
+                            <input type="text" name="name" id="name" class="form-control" required="required">
                         </div>
 
                     </form>
@@ -28,9 +28,13 @@
                                 <tr>
                                     <th>{{$location->name}}</th>
                                     <th>
+
                                         <form action="{{ url('/locations/'.$location->id)}}" method="post">
                                              {{ csrf_field() }}
                                             {{ method_field('delete')}}
+                                            <a href="{{url('/locations/'.$location->id)}}" class="btn btn-info">
+                                                Editar
+                                            </a>
                                             <button class="btn btn-danger">
                                                 Eliminar
                                             </button> 

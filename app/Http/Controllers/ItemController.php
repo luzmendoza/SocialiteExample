@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Item;
+use App\Price;//PARA LA ELIMINACION CONDICIONADA(fisica/logica)
+
 
 class ItemController extends Controller
 {
@@ -31,7 +33,26 @@ class ItemController extends Controller
     //eliminar un registro
     public function destroy(Item $item)
     {
-        $item->delete();//eliminacion fisica
+        //validar para hacer una eliminacion logica o fisica
+        if (Price::where('item_id',$item->id)->exists()) {
+            $item->delete();//eliminacion logica
+        }else{
+             $item->forceDelete();//eliminacion fisica
+        }
         return back();//regresar a la pagina donde estemos ubicados
+    }
+
+    //obtener un registro a editar
+    public function edit(Item $item)
+    {
+        $items = Item::all();
+        return view('items.edit', compact('item'));
+    }
+
+    //editar registro
+    public function update(Request $request, Item $item)
+    {
+        $item->update($request->only('name'));
+        return redirect('/items');//regresar 
     }
 }
